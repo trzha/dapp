@@ -5,23 +5,29 @@ TABLE OF CONTENTS.
 
 Use search to find needed section.
 
-===================================================================
+===============================================================================
 
-|  1. $BODY                        |  Body                        |
-|  2. $MAIN_NAVIGATION             |  Main navigation             |
-|  3. $NAVBAR_ICON_BUTTONS         |  Navbar Icon Buttons         |
-|  4. $MAIN_MENU                   |  Main menu                   |
-|  5. $UPLOADS_CHART               |  Uploads chart               |
-|  6. $EASY_PIE_CHARTS             |  Easy Pie charts             |
-|  7. $EARNED_TODAY_STAT_PANEL     |  Earned today stat panel     |
-|  8. $RETWEETS_GRAPH_STAT_PANEL   |  Retweets graph stat panel   |
-|  9. $UNIQUE_VISITORS_STAT_PANEL  |  Unique visitors stat panel  |
-|  10. $SUPPORT_TICKETS            |  Support tickets             |
-|  11. $RECENT_ACTIVITY            |  Recent activity             |
-|  12. $NEW_USERS_TABLE            |  New users table             |
-|  13. $RECENT_TASKS               |  Recent tasks                |
+|  1. $BODY                             |  Body                               |
+|  2. $MAIN_NAVIGATION                  |  Main navigation                    |
+|  3. $NAVBAR_ICON_BUTTONS              |  Navbar Icon Buttons                |
+|  4. $MAIN_MENU                        |  Main menu                          |
+|  5. $PROFILE_WIDGET_LINKS_EXAMPLE     |  Profile widget - Links example     |
+|  6. $PROFILE_WIDGET_COUNTERS_EXAMPLE  |  Profile widget - Counters example  |
+|  7. $PROFILE_WIDGET_CENTERED_EXAMPLE  |  Profile widget - Centered example  |
+|  8. $MESSAGES_LIST_ALT                |  Alt messages list                  |
+|  9. $MESSAGES_LIST                    |  Messages list                      |
+|  10. $SUPPORT_TICKETS                 |  Support tickets                    |
+|  11. $THREADS                         |  Threads                            |
+|  12. $CHAT                            |  Chat                               |
+|  13. $NOTIFICATIONS                   |  Notifications                      |
+|  14. $TASKS                           |  Tasks                              |
+|  15. $RATING                          |  Rating                             |
+|  16. $COMMENTS                        |  Comments                           |
+|  17. $ARTICLE_COMMENTS                |  Article comments                   |
+|  18. $FOLLOWERS                       |  Followers                          |
+|  19. $GOOGLE_MAPS_WIDGET              |  Google maps widget                 |
 
-===================================================================
+===============================================================================
 
 -->
 
@@ -33,22 +39,23 @@ Use search to find needed section.
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Dashboard - LanderApp</title>
+	<title>Widgets - LanderApp</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
 	<!-- Open Sans font from Google CDN -->
 	<link href="static/css/css.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="jquery.js"></script>
+
 	<!-- LanderApp's stylesheets -->
-	<!-- <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/landerapp.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/widgets.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/rtl.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/themes.min.css" rel="stylesheet" type="text/css">
-	<link href="static/css/subscribe.css" rel="stylesheet" type="text/css"> -->
+	<script type="text/javascript" src="jquery.js"></script>
 	<!--[if lt IE 9]>
 		<script src="assets/javascripts/ie.min.js"></script>
 	<![endif]-->
+
 </head>
 
 
@@ -69,6 +76,7 @@ Use search to find needed section.
 
 <script>var init = [];</script>
 <!-- Demo script --> <script src="static/js/demo.js"></script> <!-- / Demo script -->
+<script type="module" src="index.js"></script>
 <div id="main-wrapper">
 
 
@@ -78,15 +86,14 @@ Use search to find needed section.
 -->
 	<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
 		<!-- Main menu toggle -->
-		<!-- <button type="button" id="main-menu-toggle"></button> -->
-		<!-- <button type="button" id="main-menu-toggle">dw</button> -->
-		<img type="button" id="main-menu-toggle">
+		<!-- <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button> -->
+		
 		<div class="navbar-inner">
 			<!-- Main navbar header -->
 			<div class="navbar-header">
 
 				<!-- Logo -->
-				<a href="" class="navbar-brand">
+				<a href="index.html" class="navbar-brand">
 					<strong>青少年零用钱定向支付及管理</strong>
 				</a>
 
@@ -97,11 +104,6 @@ Use search to find needed section.
 
 			<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
 				<div>
-					<ul class="nav navbar-nav">
-						<li>
-							<a>余额：<strong id="parentBal">loading...</strong> 元 </a>
-						</li>
-					</ul> <!-- / .navbar-nav -->
 					
 
 					<div class="right clearfix">
@@ -120,27 +122,16 @@ Use search to find needed section.
 							* 'nav-icon-btn-danger' 
 -->
 							
-								
 
-								
-<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
-
-							
-
-<!-- 							<li class="dropdown">
+							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
-									<img src="static/picture/1.jpg" alt="">
+									<img src="static/picture/1.jpg">
 								</a>
 								<ul class="dropdown-menu">
+									
 									<li><a href="pages-signin.html"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
 								</ul>
 							</li> -->
-							<li>
-								<a id="aaa2" onclick="App.exitLogin()"><strong id="parentBal"></strong></a>
-							</li>
-							<li>
-								<a href="login.html" id="aaa"><strong>登录</strong></a>
-							</li>
 						</ul> <!-- / .navbar-nav -->
 					</div> <!-- / .right -->
 				</div>
@@ -148,184 +139,33 @@ Use search to find needed section.
 		</div> <!-- / .navbar-inner -->
 	</div> <!-- / #main-navbar -->
 <!-- /2. $END_MAIN_NAVIGATION -->
-<div id="content-wrapper" style="background: #fff;">
-	<div class="lr">
-	<!-- <p>父母余额：<strong id="parentBal">loading...</strong> 元 </p> -->
-	<div class="center">
-		<h1>查询孩子的信息</h1>
-		<p>请求地址：<strong id="teenAddr8">loading...</strong> </p>
-		<p>请求金额：<strong id="teenAmount5">loading...</strong> 元 </p>
-		<p>余额：<strong id="teenBal">loading...</strong> 元 </p>
-		<p>最大使用金额：<strong id="teenLim">loading...</strong> 元 </p>
-		<p>已使用的钱：<strong id="teenSale">loading...</strong> 元 </p>
-		<form>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAddr5">
-			<span>地址</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="查询" onclick="App.getTeen()">
-		  </div>
-		</form>
-	</div>
-	<!-- <label>输入青少年地址：</label>
-	<input type="text" id="teenAddr5"/>
-	<button onclick="App.getTeen()">提交</button> -->
-
-
-	<!-- <p>青少年是否可以买某一商户的某一商品：<strong id="isBuy1">loading...</strong></p>
+<div id="content-wrapper">
+	<p>商家余额：<strong id="sellerMoney">loading...</strong> 元 </p>
+	<p>给父母发钱：</p>
 	    <label>输入地址：</label>
-	    <input type="text" id="sellerAddr1"/>
-	    <label>输入id：</label>
-	    <input type="text" id="goodsId1"/>
-	    <button onclick="App.getIsBuy()">提交</button> -->
-	
-		<div class="center">
-			<h1>孩子是否可以买某一商户的某一商品：</h1>
-			<br>
-			<br>
-			<p>是否？<strong id="isBuy1">loading...</strong></p>
-			<form>
-			  <div class="inputbox">
-				<input type="text" required="required" id="sellerAddr1">
-				<span>地址</span>
-			  </div>
-			  <div class="inputbox">
-				<input type="text" required="required" id="goodsId1">
-				<span>id</span>
-			  </div>
-			  <div class="inputbox">
-				<input type="button" value="查询" onclick="App.getIsBuy()">
-			  </div>
-			</form>
-		  </div>
+	    <input type="text" id="parAddr2"/>
+	    <label>输入金额（元）：</label>
+	    <input type="text" id="parAmount"/>
+	    <button onclick="App.sendparBal()">提交</button>
+		
+	<p>商家上架商品：</p>
+	    <label>输入商品id：</label>
+	    <input type="text" id="goodsId4"/>
+	    <label>输入商品价格：</label>
+	    <input type="text" id="priceGoods2"/>
+		<label>输入商品数量：</label>
+	    <input type="text" id="avaGoods"/>
 
-	<!-- <p>父母给孩子发钱：</p>
-	<label>输入地址：</label>
-	<input type="text" id="teenAddr3"/>
-	<label>输入金额（元）：</label>
-	<input type="text" id="teenAmount"/>
-	<button onclick="App.sendteenBal()">提交</button> -->
-
-	<div class="center">
-		<h1>给孩子发零用钱</h1>
-		<form>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAddr3">
-			<span>地址</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAmount">
-			<span>金额（元）</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="发送" onclick="App.sendteenBal()">
-		  </div>
-		</form>
-	</div>
-	
-	<!-- <p>父母设置零用钱使用范围：</p>
-	<label>输入地址：</label>
-	<input type="text" id="teenAddr4"/>
-	<label>输入最大金额（元）：</label>
-	<input type="text" id="teenMaxAmount"/>
-	<button onclick="App.setLim()">提交</button> -->
-
-	<div class="center">
-		<h1>设置零用钱使用范围：</h1>
-		<form>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAddr4">
-			<span>地址</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenMaxAmount">
-			<span>金额（元）</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="确定" onclick="App.setLim()">
-		  </div>
-		</form>
-	</div>
-
-	<!-- <p>父母给孩子发钱（自动）：</p>
-	<label>输入地址：</label>
-	<input type="text" id="teenAddr6"/>
-	<label>输入金额（元）：</label>
-	<input type="text" id="teenAmount2"/>
-	<label>输入间隔时间（秒）：</label>
-	<input type="text" id="timeInterval"/>
-	<button onclick="App.AutosendteenBal()">开始</button>
-	<button onclick="App.StopsendteenBal()">停止</button>
-	<div id="jnkc"></div> -->
-	
-	<div class="center">
-		<h1>给孩子发零用钱（自动）</h1>
-		<form>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAddr6">
-			<span>地址</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAmount2">
-			<span>金额（元）</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="text" required="required" id="timeInterval">
-			<span>间隔时间（秒）</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="开始" onclick="App.AutosendteenBal()">
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="停止" onclick="App.StopsendteenBal()">
-		  </div>
-		</form>
-	</div>
-
-	<!-- <p>父母给孩子发钱（每周发一次）：</p>
-	<label>输入地址：</label>
-	<input type="text" id="teenAddr7"/>
-	<label>输入金额（元）：</label>
-	<input type="text" id="teenAmount3"/>
-	<label>输入周几（0到6，0代表周日）：</label>
-	<input type="text" id="day"/>
-	<button onclick="App.WeeksendteenBal()">开始</button>
-	<button onclick="App.StopWeeksendteenBal()">停止</button> -->
-
-	<div class="center">
-		<h1>给孩子发零用钱（每周发一次）</h1>
-		<form>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAddr7">
-			<span>地址</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="text" required="required" id="teenAmount3">
-			<span>金额（元）</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="text" required="required" id="day">
-			<span>周几（0到6，0代表周日）</span>
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="开始" onclick="App.WeeksendteenBal()">
-		  </div>
-		  <div class="inputbox">
-			<input type="button" value="停止" onclick="App.StopWeeksendteenBal()">
-		  </div>
-		</form>
-	</div>
-
-	
-	</div>
-	
+		<label>商品图片：</label>
+		<input type="file" id="goodsImage" onchange="App.captureFile()"/>
+		<button onclick="App.upImageOnIpfs()">上传到ipfs</button>
+	    <label>青少年是否可以购买：</label>
+	    <input type="text" id="isBuy2"/>
+	    <button onclick="App.setGoods()">提交</button>
 	<script type="module" src="index.js"></script>
-
-
-
 </div>
-    
+
+
 <!-- 4. $MAIN_MENU =================================================================================
 
 		Main menu
@@ -353,17 +193,17 @@ Use search to find needed section.
 		<div id="main-menu-inner">
 			
 			<ul class="navigation">
-				<li class="active">
-					<a href=""><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">父母</span></a>
+				<li>
+					<a href="index.html"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">父母</span></a>
 				</li>
-
+				
 				<li>
 					<a href="stat-panels.html"><i class="menu-icon fa fa-tasks"></i><span class="mm-text">青少年</span></a>
 				</li>
-				<li>
-					<a href="widgets.html"><i class="menu-icon fa fa-flask"></i><span class="mm-text">后台</span></a>
+				<li class="active">
+					<a href=""><i class="menu-icon fa fa-flask"></i><span class="mm-text">后台</span></a>
 				</li>
-				
+			
 				<li>
 					<a href="tables.html"><i class="menu-icon fa fa-table"></i><span class="mm-text">Tables</span></a>
 				</li>
@@ -466,15 +306,12 @@ Use search to find needed section.
 						</li>
 					</ul>
 				</li> -->
+
 			</ul> <!-- / .navigation -->
 
 		</div> <!-- / #main-menu-inner -->
 	</div> <!-- / #main-menu -->
-<!-- /4. $MAIN_MENU -->
 
-	
-	
-<!-- / #content-wrapper -->
 	<div id="main-menu-bg"></div>
 </div> <!-- / #main-wrapper -->
 
@@ -490,13 +327,16 @@ Use search to find needed section.
 <!-- LanderApp's javascripts -->
 <script src="static/js/bootstrap.min.js"></script>
 <script src="static/js/landerapp.min.js"></script>
-<!-- <script type="text/javascript">
+
+<!-- Google Maps -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
+
+<script type="text/javascript">
 	init.push(function () {
 		// Javascript code here
 	})
 	window.LanderApp.start(init);
-</script> -->
+</script>
 
 </body>
-
 </html>
