@@ -48,7 +48,8 @@ module.exports = {
     new CopyWebpackPlugin([{ from: "./src/login.html", to: "login.html" }]),
     new CopyWebpackPlugin([{ from: "./src/stat-panels.html", to: "stat-panels.html" }]),
     new CopyWebpackPlugin([{ from: "./src/widgets.html", to: "widgets.html" }]),
-    
+    new CopyWebpackPlugin([{ from: "./src/login_teen.html", to: "login_teen.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/login_seller.html", to: "login_seller.html" }]),
   ],
   
   devServer: { contentBase: path.join(__dirname, "dist"), compress: true },

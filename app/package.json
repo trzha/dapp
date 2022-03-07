@@ -22,9 +22,14 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "alipay-mobile": "^4.0.2",
+    "alipay-sdk": "^3.1.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "expose-loader": "^3.1.0",
+    "express": "^4.17.3",
     "hydrogen-js-sdk": "^2.3.0",
     "ipfs-api": "^26.1.2",
+    "jquery": "^3.6.0",
     "web3": "^1.2.4"
   }
 }

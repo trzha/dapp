@@ -34,24 +34,50 @@ Use search to find needed section.
 
 <!--[if IE 8]>         <html class="ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="ie9 gt-ie8"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="gt-ie8 gt-ie9 not-ie"> <!--<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="gt-ie8 gt-ie9 not-ie">
+<!--<![endif]-->
 
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Widgets - LanderApp</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style type="text/css">
+		.login {
+			border: 1px;
+			solid: #000;
+			position: absolute;
+		}
+
+		.title {
+			height: 30px;
+			line-weight: 30px;
+			position: relative;
+			padding-left: 10px;
+			background: #ccc;
+		}
+
+		.close {
+			position: absolute;
+			width: 20px;
+			height: 30px;
+			right: 0;
+			cursor: pointer;
+		}
+	</style>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
 	<!-- Open Sans font from Google CDN -->
 	<link href="static/css/css.css" rel="stylesheet" type="text/css">
 
 	<!-- LanderApp's stylesheets -->
-	<link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!-- <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/landerapp.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/widgets.min.css" rel="stylesheet" type="text/css">
 	<link href="static/css/rtl.min.css" rel="stylesheet" type="text/css">
-	<link href="static/css/themes.min.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="jquery.js"></script>
+	<link href="static/css/themes.min.css" rel="stylesheet" type="text/css"> -->
+	<script type="text/javascript" src="assets/javascripts/jquery.min.js"></script>
 	<!--[if lt IE 9]>
 		<script src="assets/javascripts/ie.min.js"></script>
 	<![endif]-->
@@ -72,44 +98,47 @@ Use search to find needed section.
 	* 'main-menu-fixed'    - Fixes the main menu
 	* 'main-menu-animated' - Animate main menu
 -->
+
 <body class="theme-default main-menu-animated">
 
-<script>var init = [];</script>
-<!-- Demo script --> <script src="static/js/demo.js"></script> <!-- / Demo script -->
-<script type="module" src="index.js"></script>
-<div id="main-wrapper">
+	<script>var init = [];</script>
+	<!-- Demo script -->
+	<script src="static/js/demo.js"></script> <!-- / Demo script -->
+	<script type="module" src="index.js"></script>
+	<div id="main-wrapper">
 
 
-<!-- 2. $MAIN_NAVIGATION ===========================================================================
+		<!-- 2. $MAIN_NAVIGATION ===========================================================================
 
 	Main navigation
 -->
-	<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
-		<!-- Main menu toggle -->
-		<!-- <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button> -->
-		
-		<div class="navbar-inner">
-			<!-- Main navbar header -->
-			<div class="navbar-header">
+		<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+			<!-- Main menu toggle -->
+			<!-- <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button> -->
 
-				<!-- Logo -->
-				<a href="index.html" class="navbar-brand">
-					<strong>青少年零用钱定向支付及管理</strong>
-				</a>
+			<div class="navbar-inner">
+				<!-- Main navbar header -->
+				<div class="navbar-header">
 
-				<!-- Main navbar toggle -->
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+					<!-- Logo -->
+					<a href="index.html" class="navbar-brand">
+						<strong>青少年零用钱定向支付及管理</strong>
+					</a>
 
-			</div> <!-- / .navbar-header -->
+					<!-- Main navbar toggle -->
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
 
-			<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
-				<div>
-					
+				</div> <!-- / .navbar-header -->
 
-					<div class="right clearfix">
-						<ul class="nav navbar-nav pull-right right-navbar-nav">
+				<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+					<div>
 
-<!-- 3. $NAVBAR_ICON_BUTTONS =======================================================================
+
+						<div class="right clearfix">
+							<ul class="nav navbar-nav pull-right right-navbar-nav">
+
+								<!-- 3. $NAVBAR_ICON_BUTTONS =======================================================================
 
 							Navbar Icon Buttons
 
@@ -121,9 +150,9 @@ Use search to find needed section.
 							* 'nav-icon-btn-warning'
 							* 'nav-icon-btn-danger' 
 -->
-							
 
-							<!-- <li class="dropdown">
+
+								<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
 									<img src="static/picture/1.jpg">
 								</a>
@@ -132,41 +161,190 @@ Use search to find needed section.
 									<li><a href="pages-signin.html"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
 								</ul>
 							</li> -->
-						</ul> <!-- / .navbar-nav -->
-					</div> <!-- / .right -->
+								<li>
+									<a id="aaa6" onclick="App.exitLogin()"></a>
+								</li>
+								<li>
+									<a href="login_seller.html" id="aaa5"><strong>登录</strong></a>
+								</li>
+							</ul> <!-- / .navbar-nav -->
+						</div> <!-- / .right -->
+					</div>
+				</div> <!-- / #main-navbar-collapse -->
+			</div> <!-- / .navbar-inner -->
+		</div> <!-- / #main-navbar -->
+		<!-- /2. $END_MAIN_NAVIGATION -->
+		<div id="content-wrapper">
+			<div class="lr">
+				<!-- <p>商家余额：<strong id="sellerMoney">loading...</strong> 元 </p>
+			<label>输入金额（元）：</label>
+			<input type="text" id="parAmount" />
+			<button onclick="App.sendparBal()">提交</button> -->
+				<!-- <script>
+				function getQueryVariable(variable) {
+					var query = window.location.search.substring(1);
+					var vars = query.split("&");
+					for (var i = 0; i < vars.length; i++) {
+						var pair = vars[i].split("=");
+						if (pair[0] == variable) { 
+							console.log(pair[1]);
+							return pair[1]; 
+						}
+					}
+					return (false);
+				}
+			</script>
+			<p id="geturl">得到url</p>
+			<button onclick="getQueryVariable('total_amount')">点点点点</button> -->
+
+				<!-- <form action="http://127.0.0.1:9001/pay" method="GET" onsubmit="return App.sendparBal()">
+				金额: <input type="text" name="first_name" id="parAmount">
+				<input type="submit" value="支付宝充值">
+			</form> -->
+
+				<!-- <p>商家上架商品：</p>
+			<label>输入商品id：</label>
+			<input type="text" id="goodsId4" />
+			<label>输入商品价格：</label>
+			<input type="text" id="priceGoods2" />
+			<label>输入商品数量：</label>
+			<input type="text" id="avaGoods" />
+			<label>商品图片：</label>
+			<input type="file" id="goodsImage" onchange="App.captureFile()" />
+			<button onclick="App.upImageOnIpfs()">上传到ipfs</button>
+			<label>青少年是否可以购买：</label>
+			<input type="text" id="isBuy2" />
+			<button onclick="App.setGoods()">提交</button> -->
+
+				<div class="center">
+					<h1>上架商品：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="goodsId4">
+							<span>id</span>
+						</div>
+						<div class="inputbox">
+							<input type="text" required="required" id="priceGoods2">
+							<span>价格（元）</span>
+						</div>
+						<div class="inputbox">
+							<input type="text" required="required" id="avaGoods">
+							<span>数量</span>
+						</div>
+						<div class="inputbox">
+							<input type="file" required="required" id="goodsImage" onchange="App.captureFile()" />
+							<span></span>
+						</div>
+						<div class="inputbox">
+							<input type="text" required="required" id="isBuy2">
+							<span>青少年是否可以购买</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="上架" onclick="App.setGoods()">
+						</div>
+					</form>
 				</div>
-			</div> <!-- / #main-navbar-collapse -->
-		</div> <!-- / .navbar-inner -->
-	</div> <!-- / #main-navbar -->
-<!-- /2. $END_MAIN_NAVIGATION -->
-<div id="content-wrapper">
-	<p>商家余额：<strong id="sellerMoney">loading...</strong> 元 </p>
-	<p>给父母发钱：</p>
-	    <label>输入地址：</label>
-	    <input type="text" id="parAddr2"/>
-	    <label>输入金额（元）：</label>
-	    <input type="text" id="parAmount"/>
-	    <button onclick="App.sendparBal()">提交</button>
-		
-	<p>商家上架商品：</p>
-	    <label>输入商品id：</label>
-	    <input type="text" id="goodsId4"/>
-	    <label>输入商品价格：</label>
-	    <input type="text" id="priceGoods2"/>
-		<label>输入商品数量：</label>
-	    <input type="text" id="avaGoods"/>
+				<div class="center">
+					<h1>查询青少年的购买记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="teenAddr9">
+							<span>地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listBuy()">
+						</div>
+					</form>
+				</div>
 
-		<label>商品图片：</label>
-		<input type="file" id="goodsImage" onchange="App.captureFile()"/>
-		<button onclick="App.upImageOnIpfs()">上传到ipfs</button>
-	    <label>青少年是否可以购买：</label>
-	    <input type="text" id="isBuy2"/>
-	    <button onclick="App.setGoods()">提交</button>
-	<script type="module" src="index.js"></script>
-</div>
+				<div class="center">
+					<h1>查询所有父母的充值记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listSendparBal()">
+						</div>
+					</form>
+				</div>
 
+				<div class="center">
+					<h1>根据父母地址查询充值记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="parAddr5">
+							<span>父母地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listASendparBal()">
+						</div>
+					</form>
+				</div>
 
-<!-- 4. $MAIN_MENU =================================================================================
+				<div class="center">
+					<h1>查询所有父母给孩子发放零用钱的记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listAllsendteenBal()">
+						</div>
+					</form>
+				</div>
+
+				<div class="center">
+					<h1>根据父母地址查询其给孩子发放零用钱的记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="parAddr6">
+							<span>父母地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listAsendteenBal()">
+						</div>
+					</form>
+				</div>
+
+				<div class="center">
+					<h1>查询所有青少年的购买记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listAllbuy()">
+						</div>
+					</form>
+				</div>
+
+				<div class="center">
+					<h1>根据青少年地址查询其购买记录：</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="teenAddr10">
+							<span>青少年地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="查询" onclick="App.listAbuy()">
+						</div>
+					</form>
+				</div>
+			</div>
+			<script type="module" src="index.js"></script>
+			<script type="module">
+				Bmob.initialize("ebc51daf45217ea1", "000727");
+				let current = Bmob.User.current();
+				if (current.username != null) {
+					//根据id获取超链接,设置href属性
+					var aObj = document.getElementById("aaa5");
+					//根据id获取超链接,设置文字内容
+					aObj.innerText = current.username;
+					aObj.href = "widgets.html"
+					//根据id获取超链接,设置href属性
+					var aObj = document.getElementById("aaa6");
+					aObj.href = "login_seller.html";
+					//根据id获取超链接,设置文字内容
+					aObj.innerText = "退出登陆";
+				}
+
+				App.refreshs("parentBal", "teenBal", "teenLim", "teenSale", "sellerMoney", this.account);
+			</script>
+		</div>
+
+		<!-- 4. $MAIN_MENU =================================================================================
 
 		Main menu
 		
@@ -189,28 +367,32 @@ Use search to find needed section.
 			  </ul>
 			</li>
 -->
-	<div id="main-menu" role="navigation">
-		<div id="main-menu-inner">
-			
-			<ul class="navigation">
-				<li>
-					<a href="index.html"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">父母</span></a>
-				</li>
-				
-				<li>
-					<a href="stat-panels.html"><i class="menu-icon fa fa-tasks"></i><span class="mm-text">青少年</span></a>
-				</li>
-				<li class="active">
-					<a href=""><i class="menu-icon fa fa-flask"></i><span class="mm-text">后台</span></a>
-				</li>
-			
-				<li>
-					<a href="tables.html"><i class="menu-icon fa fa-table"></i><span class="mm-text">Tables</span></a>
-				</li>
-				<li>
-					<a href="charts.html"><i class="menu-icon fa fa-bar-chart-o"></i><span class="mm-text">Charts</span></a>
-				</li>
-				<!-- <li class="mm-dropdown">
+		<div id="main-menu" role="navigation">
+			<div id="main-menu-inner">
+
+				<ul class="navigation">
+					<li>
+						<a href="index.html" onclick="App.exitLogin()"><i class="menu-icon fa fa-dashboard"></i><span
+								class="mm-text">父母</span></a>
+					</li>
+
+					<li>
+						<a href="stat-panels.html" onclick="App.exitLogin()"><i class="menu-icon fa fa-tasks"></i><span
+								class="mm-text">青少年</span></a>
+					</li>
+					<li class="active">
+						<a href=""><i class="menu-icon fa fa-flask"></i><span class="mm-text">后台</span></a>
+					</li>
+
+					<li>
+						<a href="tables.html"><i class="menu-icon fa fa-table"></i><span
+								class="mm-text">Tables</span></a>
+					</li>
+					<li>
+						<a href="charts.html"><i class="menu-icon fa fa-bar-chart-o"></i><span
+								class="mm-text">Charts</span></a>
+					</li>
+					<!-- <li class="mm-dropdown">
 					<a href="#"><i class="menu-icon fa fa-files-o"></i><span class="mm-text">Pages</span><span class="label label-warning">Updated</span></a>
 					<ul>
 						<li>
@@ -307,36 +489,38 @@ Use search to find needed section.
 					</ul>
 				</li> -->
 
-			</ul> <!-- / .navigation -->
+				</ul> <!-- / .navigation -->
 
-		</div> <!-- / #main-menu-inner -->
-	</div> <!-- / #main-menu -->
+			</div> <!-- / #main-menu-inner -->
+		</div> <!-- / #main-menu -->
 
-	<div id="main-menu-bg"></div>
-</div> <!-- / #main-wrapper -->
+		<div id="main-menu-bg"></div>
+	</div> <!-- / #main-wrapper -->
 
-<!-- Get jQuery from Google CDN -->
-<!--[if !IE]> -->
-	<script type="text/javascript"> window.jQuery || document.write('<script src="assets/javascripts/jquery.min.js">'+"<"+"/script>"); </script>
-<!-- <![endif]-->
-<!--[if lte IE 9]>
+	<!-- Get jQuery from Google CDN -->
+	<!--[if !IE]> -->
+	<script
+		type="text/javascript"> window.jQuery || document.write('<script src="assets/javascripts/jquery.min.js">' + "<" + "/script>"); </script>
+	<!-- <![endif]-->
+	<!--[if lte IE 9]>
 	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
 <![endif]-->
 
 
-<!-- LanderApp's javascripts -->
-<script src="static/js/bootstrap.min.js"></script>
-<script src="static/js/landerapp.min.js"></script>
+	<!-- LanderApp's javascripts -->
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/landerapp.min.js"></script>
 
-<!-- Google Maps -->
-<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
+	<!-- Google Maps -->
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
 
-<script type="text/javascript">
-	init.push(function () {
-		// Javascript code here
-	})
-	window.LanderApp.start(init);
-</script>
+	<script type="text/javascript">
+		init.push(function () {
+			// Javascript code here
+		})
+		window.LanderApp.start(init);
+	</script>
 
 </body>
+
 </html>
