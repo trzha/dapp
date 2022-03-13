@@ -3,9 +3,9 @@ import testArtifact from '../../build/contracts/test.json'
 import Bmob from "hydrogen-js-sdk";
 import ipfsAPI from 'ipfs-api'
 const ipfs = ipfsAPI({
-  host: 'ipfs.infura.io',
+  host: '127.0.0.1',
   port: '5001',
-  protocol: 'https'
+  protocol: 'http'
 });
 
 const logo = require('!file-loader?limit=102400!./static/picture/1.jpeg').default;
@@ -152,6 +152,7 @@ const App = {
       // document.getElementById(IdofparentBal).innerHTML = parBal.toString();;
       document.getElementById(IdofteenBal).innerHTML = TeenBal.toString();;
       document.getElementById(IdofteenLim).innerHTML = TeenLim.toString();;
+      document.getElementById("teenAddr11").innerHTML = addr;;
       // document.getElementById(IdofsellerMoney).innerHTML = SellerMoney.toString();;
 
     } catch (err) {
@@ -166,11 +167,13 @@ const App = {
       // const parBal = await getParBal(addr).call();
       // const TeenBal = await getTeenBal(addr).call();
       // const TeenLim = await getTeenLim(addr).call();
+      document.getElementById("sellerAddr6").innerHTML = addr;;
       const SellerMoney = await getSellerMoney(addr).call();
       // document.getElementById(IdofparentBal).innerHTML = parBal.toString();;
       // document.getElementById(IdofteenBal).innerHTML = TeenBal.toString();;
       // document.getElementById(IdofteenLim).innerHTML = TeenLim.toString();;
       document.getElementById(IdofsellerMoney).innerHTML = SellerMoney.toString();;
+      
     } catch (err) {
       console.log("refreshs出错");
       console.log(err);
@@ -406,7 +409,7 @@ const App = {
             alert("已上传到bmob")
             location.reload();
           }).catch(err => {
-            console.log(err)
+            console.log(err) 
           })
         })
         .on("error", console.log(error));
@@ -525,7 +528,7 @@ const App = {
       document.getElementById("priceGoods2").innerHTML = priceGoods;;
       document.getElementById("avaGoods").innerHTML = avaGoods;;
       document.getElementById("saleGoods").innerHTML = saleGoods;;
-      document.getElementById("goodsImage2").src = "https://ipfs.infura.io/ipfs/" + hash;;
+      document.getElementById("goodsImage2").src = "http://localhost:9090/ipfs/" + hash;;
       document.getElementById("isBuy1").innerHTML = IsBuy;;
       
     } catch (err) {
@@ -786,14 +789,15 @@ const App = {
   },
 
   listAllgoods: async function(){
-    Bmob.initialize("ebc51daf45217ea1", "000727");
-    const query = Bmob.Query("setGoods");
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsId + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].priceGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].avaGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].isBuy + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].hash + "</br>");
-      }
-    })
+    window.open("query7.html");
+    // Bmob.initialize("ebc51daf45217ea1", "000727");
+    // const query = Bmob.Query("setGoods");
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsId + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].priceGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].avaGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].isBuy + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].hash + "</br>");
+    //   }
+    // })
   },
 
   listPricegoods: async function(){
@@ -810,72 +814,78 @@ const App = {
   },
 
   listSendparBal: async function(){
-    Bmob.initialize("08638e06c054fbdc", "000727");
-    const query = Bmob.Query("sendparBal");
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
-      }
-    })
+    window.open("query.html");
+    // Bmob.initialize("08638e06c054fbdc", "000727");
+    // const query = Bmob.Query("sendparBal");
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
+    //   }
+    // })
   },
 
   listASendparBal: async function(){
-    Bmob.initialize("08638e06c054fbdc", "000727");
-    const query = Bmob.Query("sendparBal");
-    query.equalTo("address", "==", document.getElementById("parAddr5").value)
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
-      }
-    })
+    window.open("query2.html");
+    // Bmob.initialize("08638e06c054fbdc", "000727");
+    // const query = Bmob.Query("sendparBal");
+    // query.equalTo("address", "==", document.getElementById("parAddr5").value)
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
+    //   }
+    // })
   },
 
   listAllsendteenBal: async function(){
-    Bmob.initialize("08638e06c054fbdc", "000727");
-    const query = Bmob.Query("sendteenBal");
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].paddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].taddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
-      }
-    })
+    window.open("query3.html");
+    // Bmob.initialize("08638e06c054fbdc", "000727");
+    // const query = Bmob.Query("sendteenBal");
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].paddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].taddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
+    //   }
+    // })
   },
 
   listAsendteenBal: async function(){
-    Bmob.initialize("08638e06c054fbdc", "000727");
-    const query = Bmob.Query("sendteenBal");
-    query.equalTo("paddr", "==", document.getElementById("parAddr6").value)
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].paddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].taddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
-      }
-    })
+    window.open("query4.html");
+    // Bmob.initialize("08638e06c054fbdc", "000727");
+    // const query = Bmob.Query("sendteenBal");
+    // query.equalTo("paddr", "==", document.getElementById("parAddr6").value)
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].paddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].taddr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].amount + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
+    //   }
+    // })
   },
 
   listAllbuy: async function(){
-    Bmob.initialize("c10761a122fca01d", "000727");
-    const query = Bmob.Query("Buy");
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].addr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].seller + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsid + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].num + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
-      }
-    })
+    window.open("query5.html");
+    // Bmob.initialize("c10761a122fca01d", "000727");
+    // const query = Bmob.Query("Buy");
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].addr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].seller + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsid + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].num + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
+    //   }
+    // })
   },
 
   listAbuy: async function(){
-    Bmob.initialize("c10761a122fca01d", "000727");
-    const query = Bmob.Query("Buy");
-    query.equalTo("addr", "==", document.getElementById("teenAddr10").value)
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].addr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].seller + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsid + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].num + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
-      }
-    })
+    window.open("query5.html");
+    // Bmob.initialize("c10761a122fca01d", "000727");
+    // const query = Bmob.Query("Buy");
+    // query.equalTo("addr", "==", document.getElementById("teenAddr10").value)
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for(var i = 0; i < res.length ;i++){
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].addr + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].seller + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsid + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].num + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
+    //   }
+    // })
   },
 }
 

@@ -113,6 +113,11 @@ Use search to find needed section.
 								<a>可使用金额：<strong id="teenLim">loading...</strong> 元 </a>
 							</li>
 						</ul> <!-- / .navbar-nav -->
+						<ul class="nav navbar-nav">
+							<li>
+								<a>您的地址为：<strong id="teenAddr11">loading...</strong></a>
+							</li>
+						</ul> <!-- / .navbar-nav -->
 						<div class="right clearfix">
 							<ul class="nav navbar-nav pull-right right-navbar-nav">
 
@@ -192,14 +197,14 @@ Use search to find needed section.
 								class="mm-text">后台</span></a>
 					</li>
 
-					<li>
+					<!-- <li>
 						<a href="tables.html"><i class="menu-icon fa fa-table"></i><span
 								class="mm-text">Tables</span></a>
 					</li>
 					<li>
 						<a href="charts.html"><i class="menu-icon fa fa-bar-chart-o"></i><span
 								class="mm-text">Charts</span></a>
-					</li>
+					</li> -->
 					<!-- <li class="mm-dropdown">
 					<a href="#"><i class="menu-icon fa fa-files-o"></i><span class="mm-text">Pages</span><span class="label label-warning">Updated</span></a>
 					<ul>
@@ -378,7 +383,7 @@ Use search to find needed section.
 				<div class="center">
 					<h1>查看某一商家某一商品信息：</h1>
 					<p>商品价格：<strong id="priceGoods2">loading...</strong> </p>
-					<p>商品库存：<strong id="avaGoods">loading...</strong>  </p>
+					<p>商品库存：<strong id="avaGoods">loading...</strong> </p>
 					<p>商品销量：<strong id="saleGoods">loading...</strong></p>
 					<p>是否可以购买？<strong id="isBuy1">loading...</strong></p>
 					<p>商品图片：<img src="" id="goodsImage2"> </p>
@@ -454,6 +459,7 @@ Use search to find needed section.
 
 			<script type="module" src="index.js"></script>
 			<script type="module">
+
 				Bmob.initialize("c10761a122fca01d", "000727");
 				let current = Bmob.User.current();
 				if (current.username != null) {
@@ -468,7 +474,7 @@ Use search to find needed section.
 					//根据id获取超链接,设置文字内容
 					aObj.innerText = "退出登陆";
 				}
-
+				
 				App.refresht("parentBal", "teenBal", "teenLim", "teenSale", "sellerMoney", this.account);
 			</script>
 		</div>

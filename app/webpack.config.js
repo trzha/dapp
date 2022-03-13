@@ -12,11 +12,9 @@ module.exports = {
   module: {
     rules: [
       {
-       test: /\.css$/,
-       use: [
-            {loader: "style-loader"},
-            {loader: "css-loader"},
-       ]
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+       
        //include: path.resolve(__dirname, "src/static/css")
       },
       {
@@ -50,6 +48,13 @@ module.exports = {
     new CopyWebpackPlugin([{ from: "./src/widgets.html", to: "widgets.html" }]),
     new CopyWebpackPlugin([{ from: "./src/login_teen.html", to: "login_teen.html" }]),
     new CopyWebpackPlugin([{ from: "./src/login_seller.html", to: "login_seller.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query.html", to: "query.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query2.html", to: "query2.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query3.html", to: "query3.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query4.html", to: "query4.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query5.html", to: "query5.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query6.html", to: "query6.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query7.html", to: "query7.html" }]),
   ],
   
   devServer: { contentBase: path.join(__dirname, "dist"), compress: true },
