@@ -144,6 +144,9 @@ Use search to find needed section.
 								</ul>
 							</li> -->
 								<li>
+									<a onclick="App.listAbuy()">购买记录</a>
+								</li>
+								<li>
 									<a id="aaa4" onclick="App.exitLogin()"></a>
 								</li>
 								<li>
@@ -347,6 +350,19 @@ Use search to find needed section.
 				<input type="text" id="buyNum" />
 				<button onclick="App.buy()">提交</button> -->
 
+				
+				<div class="center">
+					<h1>绑定地址</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="parAddr6">
+							<span>地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="绑定" onclick="App.bindp()">
+						</div>
+					</form>
+				</div>
 
 				<div class="center">
 					<h1>买商品：</h1>
@@ -474,7 +490,7 @@ Use search to find needed section.
 					//根据id获取超链接,设置文字内容
 					aObj.innerText = "退出登陆";
 				}
-				
+
 				App.refresht("parentBal", "teenBal", "teenLim", "teenSale", "sellerMoney", this.account);
 			</script>
 		</div>

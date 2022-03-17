@@ -131,7 +131,7 @@ const App = {
       document.getElementById(IdofparentBal).innerHTML = parBal.toString();;
       document.getElementById("teenAddr8").innerHTML = precetaddr.toString();;
       document.getElementById("teenAmount5").innerHTML = precemoney.toString();;
-      document.getElementById("parAddr4").innerHTML = addr;;
+      document.getElementById("parAddr5").innerHTML = addr;;
       // document.getElementById(IdofteenBal).innerHTML = TeenBal.toString();;
       // document.getElementById(IdofteenLim).innerHTML = TeenLim.toString();;
       // document.getElementById(IdofsellerMoney).innerHTML = SellerMoney.toString();;
@@ -173,7 +173,7 @@ const App = {
       // document.getElementById(IdofteenBal).innerHTML = TeenBal.toString();;
       // document.getElementById(IdofteenLim).innerHTML = TeenLim.toString();;
       document.getElementById(IdofsellerMoney).innerHTML = SellerMoney.toString();;
-      
+
     } catch (err) {
       console.log("refreshs出错");
       console.log(err);
@@ -262,6 +262,7 @@ const App = {
           query.set("username", Bmob.User.current().username)
           query.set("address", result.returnValues.addr)
           query.set("amount", result.returnValues.amount)
+          query.set("txhash", result.transactionHash)
           query.save().then(res => {
             console.log(res)
             alert("已上传到bmob")
@@ -305,6 +306,7 @@ const App = {
           query.set("paddr", result.returnValues.addr)
           query.set("taddr", result.returnValues.receiver)
           query.set("amount", result.returnValues.amount)
+          query.set("txhash", result.transactionHash)
           query.save().then(res => {
             console.log(res)
             alert("已上传到bmob")
@@ -400,16 +402,17 @@ const App = {
           query.set("username", Bmob.User.current().username)
           query.set("address", result.returnValues.addr)
           query.set("goodsId", result.returnValues.id)
-          query.set("priceGoods", result.returnValues.price)
+          query.set("priceGoods", parseInt(result.returnValues.price))
           query.set("avaGoods", result.returnValues.ava)
           query.set("isBuy", result.returnValues.isTeen)
           query.set("hash", result.returnValues.hash)
+          query.set("txhash", result.transactionHash)
           query.save().then(res => {
             console.log(res)
             alert("已上传到bmob")
             location.reload();
           }).catch(err => {
-            console.log(err) 
+            console.log(err)
           })
         })
         .on("error", console.log(error));
@@ -478,6 +481,7 @@ const App = {
       const sellerAddr4 = document.getElementById("sellerAddr4").value;
       const goodsId3 = document.getElementById("goodsId3").value;
       const buyNum = document.getElementById("buyNum").value;
+
       await buy(sellerAddr4, goodsId3, buyNum).send({ from: this.account });
       console.log("+1")
       this.test.events.Buy({
@@ -493,6 +497,7 @@ const App = {
           query.set("seller", result.returnValues.seller)
           query.set("goodsid", result.returnValues.id)
           query.set("num", result.returnValues.num)
+          query.set("txhash", result.transactionHash)
           query.save().then(res => {
             console.log(res)
             alert("已上传到bmob")
@@ -530,7 +535,7 @@ const App = {
       document.getElementById("saleGoods").innerHTML = saleGoods;;
       document.getElementById("goodsImage2").src = "http://localhost:9090/ipfs/" + hash;;
       document.getElementById("isBuy1").innerHTML = IsBuy;;
-      
+
     } catch (err) {
       console.log("getallGoods出错");
       console.log(err);
@@ -652,6 +657,18 @@ const App = {
       }).catch(err => {
         console.log(err)
       });
+
+
+      const query = Bmob.Query('user');
+      query.set("user", user2)
+      query.set("pass", pass2)
+      query.save().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+
+
       alert("注册成功");
     } catch (err) {
       console.log("parRegister出错");
@@ -677,6 +694,16 @@ const App = {
       }).catch(err => {
         console.log(err)
       });
+
+      const query = Bmob.Query('user');
+      query.set("user", user3)
+      query.set("pass", pass3)
+      query.save().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+
       alert("注册成功");
     } catch (err) {
       console.log("teenRegister出错");
@@ -702,6 +729,18 @@ const App = {
       }).catch(err => {
         console.log(err)
       });
+
+
+      const query = Bmob.Query('user');
+      query.set("user", user5)
+      query.set("pass", pass5)
+      query.save().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+
+
       alert("注册成功");
     } catch (err) {
       console.log("selRegister出错");
@@ -718,6 +757,7 @@ const App = {
         console.log(res)
         self.location = "index.html";
       }).catch(err => {
+        alert("登录失败！")
         console.log(err)
       });
     } catch (err) {
@@ -735,6 +775,7 @@ const App = {
         console.log(res)
         self.location = "stat-panels.html";
       }).catch(err => {
+        alert("登录失败！")
         console.log(err)
       });
     } catch (err) {
@@ -752,6 +793,7 @@ const App = {
         console.log(res)
         self.location = "widgets.html";
       }).catch(err => {
+        alert("登录失败！")
         console.log(err)
       });
     } catch (err) {
@@ -774,7 +816,7 @@ const App = {
     Bmob.User.logout();
   },
 
-  listBuy: async function(){
+  listBuy: async function () {
     Bmob.initialize("c10761a122fca01d", "000727");
     const query = Bmob.Query("Buy");
     query.equalTo("addr", "==", document.getElementById("teenAddr9").value)
@@ -782,13 +824,13 @@ const App = {
     query.find().then(res => {
       console.log(res);
       document.write("用户名" + "&nbsp;&nbsp;&nbsp;&nbsp;" + "商家地址" + "&nbsp;&nbsp;&nbsp;&nbsp;" + "商品id" + "&nbsp;&nbsp;&nbsp;&nbsp;" + "购买数量" + "&nbsp;&nbsp;&nbsp;&nbsp;" + "购买时间" + "</br>");
-      for(var i = 0; i < res.length ;i++){
+      for (var i = 0; i < res.length; i++) {
         document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].seller + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsid + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].num + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].createdAt + "</br>");
       }
     })
   },
 
-  listAllgoods: async function(){
+  listAllgoods: async function () {
     window.open("query7.html");
     // Bmob.initialize("ebc51daf45217ea1", "000727");
     // const query = Bmob.Query("setGoods");
@@ -800,20 +842,21 @@ const App = {
     // })
   },
 
-  listPricegoods: async function(){
-    Bmob.initialize("ebc51daf45217ea1", "000727");
-    const query = Bmob.Query("setGoods");
-    query.equalTo("priceGoods", ">=", document.getElementById("minprice").value);
-    query.equalTo("priceGoods", "<=", document.getElementById("maxprice").value);
-    query.find().then(res => {
-      console.log(res);
-      for(var i = 0; i < res.length ;i++){
-        document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsId + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].priceGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].avaGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].isBuy + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].hash + "</br>");
-      }
-    })
+  listPricegoods: async function () {
+    window.open("query8.html");
+    // Bmob.initialize("ebc51daf45217ea1", "000727");
+    // const query = Bmob.Query("setGoods");
+    // query.equalTo("priceGoods", ">=", document.getElementById("minprice").value);
+    // query.equalTo("priceGoods", "<=", document.getElementById("maxprice").value);
+    // query.find().then(res => {
+    //   console.log(res);
+    //   for (var i = 0; i < res.length; i++) {
+    //     document.write(res[i].username + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].address + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].goodsId + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].priceGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].avaGoods + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].isBuy + "&nbsp;&nbsp;&nbsp;&nbsp;" + res[i].hash + "</br>");
+    //   }
+    // })
   },
 
-  listSendparBal: async function(){
+  listSendparBal: async function () {
     window.open("query.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendparBal");
@@ -825,7 +868,7 @@ const App = {
     // })
   },
 
-  listASendparBal: async function(){
+  listASendparBal: async function () {
     window.open("query2.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendparBal");
@@ -838,7 +881,7 @@ const App = {
     // })
   },
 
-  listAllsendteenBal: async function(){
+  listAllsendteenBal: async function () {
     window.open("query3.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendteenBal");
@@ -850,7 +893,7 @@ const App = {
     // })
   },
 
-  listAsendteenBal: async function(){
+  listAsendteenBal: async function () {
     window.open("query4.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendteenBal");
@@ -863,7 +906,7 @@ const App = {
     // })
   },
 
-  listAllbuy: async function(){
+  listAllbuy: async function () {
     window.open("query5.html");
     // Bmob.initialize("c10761a122fca01d", "000727");
     // const query = Bmob.Query("Buy");
@@ -875,8 +918,8 @@ const App = {
     // })
   },
 
-  listAbuy: async function(){
-    window.open("query5.html");
+  listAbuy: async function () {
+    window.open("query6.html");
     // Bmob.initialize("c10761a122fca01d", "000727");
     // const query = Bmob.Query("Buy");
     // query.equalTo("addr", "==", document.getElementById("teenAddr10").value)
@@ -887,6 +930,104 @@ const App = {
     //   }
     // })
   },
+
+  verify: async function () {//metamask签名登录
+
+    console.log(location.href)
+    var r, non;
+    if (location.href.toString() == "http://127.0.0.1:8080/login.html") {
+      Bmob.initialize("08638e06c054fbdc", "000727");
+    } else if (location.href.toString() == "http://127.0.0.1:8080/login_teen.html") {
+      Bmob.initialize("c10761a122fca01d", "000727");
+    } else {
+      Bmob.initialize("ebc51daf45217ea1", "000727");
+    }
+    var query = Bmob.Query("user");
+    query.equalTo("addr", "==", this.account)
+    await query.find().then(res => {
+      // 返回成功
+      console.log(res)
+      non = res[0].nonce
+    }).catch(e => {
+      alert("请先将账户与地址绑定")
+    });
+    console.log(non)
+    await this.web3.eth.personal.sign(non, this.account).then(res => {
+      console.log('签名结果--', res)
+      r = res;
+    }).catch(e => {
+      console.log('签名错误--', e)
+    })
+    query = Bmob.Query("user");
+    query.equalTo("addr", "==", this.account)
+    query.find().then(res => {
+      // 返回成功
+      non = res[0].nonce
+    });
+    var result
+    await this.web3.eth.personal.ecRecover(non, r).then(res => {
+      result = res;
+    });
+    var user, pass;
+    if (result.toUpperCase() == this.account.toUpperCase()) {
+      var query = Bmob.Query("user");
+      query.equalTo("addr", "==", this.account)
+      await query.find().then(todos => {
+        todos.set('nonce', parseInt(Math.random() * 10000).toString());
+        console.log(parseInt(Math.random() * 10000).toString())
+        todos.saveAll().then(res => {
+          console.log(res, 'ok')
+        }).catch(err => {
+          console.log(err)
+        });
+      })
+
+      var query = Bmob.Query("user");
+      query.equalTo("addr", "==", this.account)
+      await query.find().then(res => {
+        // 返回成功
+        console.log(res[0].user)
+        user = res[0].user;
+        pass = res[0].pass;
+      });
+      Bmob.User.login(user, pass).then(res => {
+        console.log(res)
+        
+        if (location.href.toString() == "http://127.0.0.1:8080/login.html") {
+          self.location = "index.html";
+        } else if (location.href.toString() == "http://127.0.0.1:8080/login_teen.html") {
+          self.location = "stat-panels.html";
+        } else {
+          self.location = "widgets.html";
+        }
+      }).catch(err => {
+        alert("登录失败！")
+        console.log(err)
+      });
+    }
+  },
+
+  bindp: async function () {
+    if (location.href.toString() == "http://127.0.0.1:8080/index.html") {
+      Bmob.initialize("08638e06c054fbdc", "000727");
+    } else if (location.href.toString() == "http://127.0.0.1:8080/stat-panels.html") {
+      Bmob.initialize("c10761a122fca01d", "000727");
+    } else {
+      Bmob.initialize("ebc51daf45217ea1", "000727");
+    }
+    var query = Bmob.Query("user");
+    query.equalTo("user", "==", Bmob.User.current().username)
+    query.find().then(todos => {
+      todos.set('addr', document.getElementById("parAddr6").value);
+      todos.set('nonce', parseInt(Math.random() * 10000).toString());
+      todos.saveAll().then(res => {
+        console.log(res, 'ok')
+        alert("绑定成功")
+      }).catch(err => {
+        console.log(err)
+      });
+    })
+  }
 }
 
 window.App = App;

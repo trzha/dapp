@@ -55,6 +55,7 @@ module.exports = {
     new CopyWebpackPlugin([{ from: "./src/query5.html", to: "query5.html" }]),
     new CopyWebpackPlugin([{ from: "./src/query6.html", to: "query6.html" }]),
     new CopyWebpackPlugin([{ from: "./src/query7.html", to: "query7.html" }]),
+    new CopyWebpackPlugin([{ from: "./src/query8.html", to: "query8.html" }]),
   ],
   
   devServer: { contentBase: path.join(__dirname, "dist"), compress: true },

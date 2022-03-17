@@ -156,17 +156,19 @@
 </style>
 
 <body>
-    <h2>父母给孩子发放零用钱记录</h2>
+    <h2>商品</h2>
     <div class="table-wrapper">
         <table class="fl-table" id="ta">
             <thead>
                 <tr>
                     <th>序号</th>
-                    <th>父母用户名</th>
-                    <th>父母地址</th>
-                    <th>孩子地址</th>
-                    <th>金额</th>
-                    <th>时间</th>
+                    <th>商家用户名</th>
+                    <th>商家地址</th>
+                    <th>商品id</th>
+                    <th>价格</th>
+                    <th>商品库存</th>
+                    <th>是否可以购买</th>
+                    <th>商品图片（hash）</th>
                     <th>交易哈希</th>
                 </tr>
             </thead>
@@ -179,14 +181,14 @@
     <script type="module">
         var pare = window.opener;
         var ta = document.getElementById("ta");
-        console.log(pare.document.getElementById("parAddr6"))
-        pare.Bmob.initialize("08638e06c054fbdc", "000727");
-        const query = pare.Bmob.Query("sendteenBal");
-        if(pare.document.getElementById("parAddr6") != null){
-            query.equalTo("paddr", "==", pare.document.getElementById("parAddr6").value)
-        }else{
-            query.equalTo("paddr", "==", pare.App.account)
-        }
+        pare.Bmob.initialize("ebc51daf45217ea1", "000727");
+        const query = pare.Bmob.Query("setGoods");
+
+        console.log(pare.document.getElementById("minprice").value)
+        console.log(pare.document.getElementById("maxprice").value)
+        query.equalTo("priceGoods", ">=", parseInt(pare.document.getElementById("minprice").value));
+        query.equalTo("priceGoods", "<=", parseInt(pare.document.getElementById("maxprice").value));
+
         query.find().then(res => {
             //console.log(res);
             for (var i = 0; i < res.length; i++) {
@@ -197,10 +199,13 @@
                 var newtr = ta.insertRow(-1);//添加一行
                 newtr.insertCell().innerHTML = i + 1;
                 newtr.insertCell().innerHTML = res[i].username;
-                newtr.insertCell().innerHTML = res[i].paddr;
-                newtr.insertCell().innerHTML = res[i].taddr;
-                newtr.insertCell().innerHTML = res[i].amount;
-                newtr.insertCell().innerHTML = res[i].createdAt;
+                newtr.insertCell().innerHTML = res[i].address;
+                newtr.insertCell().innerHTML = res[i].goodsId;
+                newtr.insertCell().innerHTML = res[i].priceGoods;
+                newtr.insertCell().innerHTML = res[i].avaGoods;
+                newtr.insertCell().innerHTML = res[i].isBuy;
+                var hh = "http://localhost:9090/ipfs/" + res[i].hash;
+                newtr.insertCell().innerHTML = "<a href=" + hh + ">" + res[i].hash + "</a>"
                 newtr.insertCell().innerHTML = res[i].txhash;
             }
         }

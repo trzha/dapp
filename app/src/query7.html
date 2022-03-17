@@ -156,7 +156,7 @@
 </style>
 
 <body>
-    <h2>购买记录</h2>
+    <h2>商品</h2>
     <div class="table-wrapper">
         <table class="fl-table" id="ta">
             <thead>
@@ -169,6 +169,7 @@
                     <th>商品库存</th>
                     <th>是否可以购买</th>
                     <th>商品图片（hash）</th>
+                    <th>交易哈希</th>
                 </tr>
             </thead>
             <tbody>
@@ -199,6 +200,7 @@
                 newtr.insertCell().innerHTML = res[i].isBuy;
                 var hh = "http://localhost:9090/ipfs/" + res[i].hash;
                 newtr.insertCell().innerHTML = "<a href=" + hh + ">" + res[i].hash + "</a>"
+                newtr.insertCell().innerHTML = res[i].txhash;
             }
         }
         )

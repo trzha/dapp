@@ -166,6 +166,7 @@
                     <th>地址</th>
                     <th>金额</th>
                     <th>时间</th>
+                    <th>交易哈希</th>
                 </tr>
             </thead>
             <tbody>
@@ -179,7 +180,11 @@
         var ta = document.getElementById("ta");
         pare.Bmob.initialize("08638e06c054fbdc", "000727");
         const query = pare.Bmob.Query("sendparBal");
-        query.equalTo("address", "==", pare.document.getElementById("parAddr5").value)
+        if(pare.document.getElementById("parAddr5") != null){
+            query.equalTo("address", "==", pare.document.getElementById("parAddr5").value)
+        }else{
+            query.equalTo("address", "==", pare.App.account)
+        }
         query.find().then(res => {
             //console.log(res);
             for (var i = 0; i < res.length; i++) {
@@ -193,6 +198,7 @@
                 newtr.insertCell().innerHTML = res[i].address;
                 newtr.insertCell().innerHTML = res[i].amount;
                 newtr.insertCell().innerHTML = res[i].createdAt;
+                newtr.insertCell().innerHTML = res[i].txhash;
             }
         }
         )

@@ -110,7 +110,7 @@ Use search to find needed section.
 						</ul> <!-- / .navbar-nav -->
 						<ul class="nav navbar-nav">
 							<li>
-								<a>您的地址为：<strong id="parAddr4">loading...</strong></a>
+								<a>您的地址为：<strong id="parAddr5">loading...</strong></a>
 							</li>
 						</ul> <!-- / .navbar-nav -->
 
@@ -146,6 +146,12 @@ Use search to find needed section.
 								</ul>
 							</li> -->
 								<li>
+									<a onclick="App.listAsendteenBal()"><strong>发钱记录</strong></a>
+								</li>
+								<li>
+									<a onclick="App.listASendparBal()"><strong>充值记录</strong></a>
+								</li>
+								<li>
 									<a id="aaa2" onclick="App.exitLogin()"><strong id="parentBal"></strong></a>
 								</li>
 								<li>
@@ -161,6 +167,20 @@ Use search to find needed section.
 		<div id="content-wrapper" style="background: #fff;">
 
 			<div class="lr">
+				<div class="center">
+					<h1>绑定地址</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="parAddr6">
+							<span>地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="绑定" onclick="App.bindp()">
+						</div>
+					</form>
+				</div>
+
+
 				<div class="center">
 					<h1>充值</h1>
 					<form action="http://127.0.0.1:9001/pay" method="GET" target="_blank"
@@ -286,7 +306,7 @@ Use search to find needed section.
 	<button onclick="App.StopsendteenBal()">停止</button>
 	<div id="jnkc"></div> -->
 
-				<div class="center">
+				<!-- <div class="center">
 					<h1>给孩子发零用钱（自动）</h1>
 					<form>
 						<div class="inputbox">
@@ -308,7 +328,7 @@ Use search to find needed section.
 							<input type="button" value="停止" onclick="App.StopsendteenBal()">
 						</div>
 					</form>
-				</div>
+				</div> -->
 
 				<!-- <p>父母给孩子发钱（每周发一次）：</p>
 	<label>输入地址：</label>
@@ -320,7 +340,7 @@ Use search to find needed section.
 	<button onclick="App.WeeksendteenBal()">开始</button>
 	<button onclick="App.StopWeeksendteenBal()">停止</button> -->
 
-				<div class="center">
+				<!-- <div class="center">
 					<h1>给孩子发零用钱（每周发一次）</h1>
 					<form>
 						<div class="inputbox">
@@ -342,7 +362,7 @@ Use search to find needed section.
 							<input type="button" value="停止" onclick="App.StopWeeksendteenBal()">
 						</div>
 					</form>
-				</div>
+				</div> -->
 
 
 			</div>
