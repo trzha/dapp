@@ -64,6 +64,63 @@ Use search to find needed section.
 			right: 0;
 			cursor: pointer;
 		}
+
+		.selectdiv {
+			position: relative;
+			/*Don't really need this just for demo styling*/
+
+			/* float: left; */
+			min-width: 200px;
+			/* margin: 50px 33%; */
+		}
+
+		/* IE11 hide native button (thanks Matt!) */
+		select::-ms-expand {
+			display: none;
+		}
+
+		.selectdiv:after {
+			content: '<>';
+			font: 17px "Consolas", monospace;
+			color: #333;
+			-webkit-transform: rotate(90deg);
+			-moz-transform: rotate(90deg);
+			-ms-transform: rotate(90deg);
+			transform: rotate(90deg);
+			right: 11px;
+			/*Adjust for position however you want*/
+
+			top: 18px;
+			padding: 0 0 2px;
+			border-bottom: 1px solid #999;
+			/*left line */
+
+			position: absolute;
+			pointer-events: none;
+		}
+
+		.selectdiv select {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			/* Add some styling */
+
+			display: block;
+			width: 100%;
+			max-width: 320px;
+			height: 50px;
+			float: right;
+			margin: 5px 0px;
+			padding: 0px 24px;
+			font-size: 16px;
+			line-height: 1.75;
+			color: #333;
+			background-color: #ffffff;
+			background-image: none;
+			border: 1px solid #cccccc;
+			-ms-word-break: normal;
+			word-break: normal;
+		}
 	</style>
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -121,6 +178,7 @@ Use search to find needed section.
 				<div class="navbar-header">
 
 					<!-- Logo -->
+					<img type="button" id="main-menu-toggle">
 					<a href="index.html" class="navbar-brand">
 						<strong>青少年零用钱定向支付及管理</strong>
 					</a>
@@ -220,18 +278,43 @@ Use search to find needed section.
 			<label>青少年是否可以购买：</label>
 			<input type="text" id="isBuy2" />
 			<button onclick="App.setGoods()">提交</button> -->
-			<div class="center">
-				<h1>绑定地址</h1>
-				<form>
-					<div class="inputbox">
-						<input type="text" required="required" id="parAddr6">
-						<span>地址</span>
-					</div>
-					<div class="inputbox">
-						<input type="button" value="绑定" onclick="App.bindp()">
-					</div>
-				</form>
-			</div>
+				<div class="center">
+					<h1>绑定地址</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="parAddr6">
+							<span>地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="绑定" onclick="App.bindp()">
+						</div>
+					</form>
+				</div>
+
+				<div class="center">
+					<h1>记录溯源</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="tranHash">
+							<span>交易哈希</span>
+						</div>
+						<label class="selectdiv">
+							<select id="s">
+
+								<option value="父母充值记录">父母充值记录</option>
+
+								<option value="父母发钱记录">父母发钱记录</option>
+
+								<option value="青少年购买记录">青少年购买记录</option>
+
+
+							</select>
+						</label>
+						<div class="inputbox">
+							<input type="button" value="溯源" onclick="App.trace()">
+						</div>
+					</form>
+				</div>
 
 				<div class="center">
 					<h1>上架商品：</h1>

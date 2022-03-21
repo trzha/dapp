@@ -19,6 +19,12 @@ contract test{
     mapping(address => mapping(uint => uint)) public Allofid;//保存某一商家所有不同的id
     mapping(address => uint) public idnum;//保存某一商家不同商品数量
 
+    // struct par{
+    //     address father;
+    //     address mother;
+    // }
+    mapping(address => address) public TeentoPar;
+
     event SendparBal(
         address addr,
         uint amount
@@ -51,15 +57,16 @@ contract test{
         uint id, 
         uint num
     );
-   /*
-    constructor() public { 
-        parentBal[0x9aA545e28803cA163149D43Af207ec31cff6A67E] = 100;
-        // teenBal[0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2] = 40;
-        // teenLim[0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2] = 20;
-        // priceGoods[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db][1] = 3;
-        // isBuy[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db][1] = true;
-    }
-    */
+    
+    // constructor() public { 
+    //     parentBal[0x5B38Da6a701c568545dCfcB03FcB875f56beddC4] = 100;
+    //     parentBal[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db] = 100;
+    //     teenBal[0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2] = 40;
+    //     teenLim[0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2] = 20;
+    //     priceGoods[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db][1] = 3;
+    //     isBuy[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db][1] = true;
+    // }
+     
     function getParBal(address parAddr) view public returns(uint){
         return parentBal[parAddr];
     }
@@ -103,24 +110,40 @@ contract test{
         return imgGoods[sellerAddr][id];
     }
     //父母方法
-    function sendteenBal(address receiver, uint amount) public {//父母发钱
+    function isPar(address taddr)view public returns(bool){//判断是不是青少年的父母
+        if(TeentoPar[taddr] == msg.sender){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function sendteenBal(address receiver, uint amount) public returns(bool){//父母发钱
+        require(isPar(receiver));
         require(parentBal[msg.sender] >= amount);
         require(teenBal[receiver] + amount >= teenBal[receiver]);
         parentBal[msg.sender] -= amount;
         teenBal[receiver] += amount;
         emit SendteenBal(msg.sender, receiver, amount);
+        return true;
     }
+
     function setLim(address receiver, uint maxAmount) public {//父母设置零用钱使用范围
+        require(isPar(receiver));
         require(maxAmount <= teenBal[receiver]);//保证上限低于青少年拥有的钱
         teenLim[receiver] = maxAmount;
         emit SetLim(msg.sender, receiver, maxAmount);
     }
 
-
     //青少年方法
+    function bind(address paddr) public {//绑定父母的地址
+        TeentoPar[msg.sender] = paddr;
+    }
+
     function buy(address seller, uint id, uint num) public {//买商品
-        //require(isBuy[seller][id] == true);
-        //require(teenLim[msg.sender] >= priceGoods[seller][id]);
+        require(isBuy[seller][id] == true);
+        require(teenLim[msg.sender] >= num * priceGoods[seller][id]);
+        require(avaGoods[seller][id] >= num);
         teenLim[msg.sender] -= num * priceGoods[seller][id];
         teenBal[msg.sender] -= num * priceGoods[seller][id];
         teenSale[msg.sender] += num *priceGoods[seller][id];

@@ -85,7 +85,7 @@ Use search to find needed section.
 		<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
 			<!-- Main menu toggle -->
 			<!-- <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button> -->
-
+			<img type="button" id="main-menu-toggle">
 			<div class="navbar-inner">
 				<!-- Main navbar header -->
 				<div class="navbar-header">
@@ -360,6 +360,19 @@ Use search to find needed section.
 						</div>
 						<div class="inputbox">
 							<input type="button" value="绑定" onclick="App.bindp()">
+						</div>
+					</form>
+				</div>
+
+				<div class="center">
+					<h1>绑定父母的地址</h1>
+					<form>
+						<div class="inputbox">
+							<input type="text" required="required" id="parAddr7">
+							<span>地址</span>
+						</div>
+						<div class="inputbox">
+							<input type="button" value="绑定" onclick="App.tbindp()">
 						</div>
 					</form>
 				</div>

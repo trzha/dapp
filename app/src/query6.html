@@ -182,7 +182,7 @@
         var ta = document.getElementById("ta");
         pare.Bmob.initialize("c10761a122fca01d", "000727");
         const query = pare.Bmob.Query("Buy");
-        if(pare.document.getElementById("parAddr6") != null){
+        if(pare.document.getElementById("teenAddr6") != null){
             query.equalTo("addr", "==", pare.document.getElementById("teenAddr10").value)
         }else{
             query.equalTo("addr", "==", pare.App.account)

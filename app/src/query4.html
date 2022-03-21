@@ -179,13 +179,15 @@
     <script type="module">
         var pare = window.opener;
         var ta = document.getElementById("ta");
-        console.log(pare.document.getElementById("parAddr6"))
+        console.log(pare.document.getElementById("parAddr6").value)
         pare.Bmob.initialize("08638e06c054fbdc", "000727");
         const query = pare.Bmob.Query("sendteenBal");
-        if(pare.document.getElementById("parAddr6") != null){
+        if(pare.document.getElementById("parAddr6").value != ""){
+            console.log(pare.document.getElementById("parAddr6").value)
             query.equalTo("paddr", "==", pare.document.getElementById("parAddr6").value)
         }else{
             query.equalTo("paddr", "==", pare.App.account)
+            console.log("hhhhhhh")
         }
         query.find().then(res => {
             //console.log(res);
