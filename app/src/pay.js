@@ -6,16 +6,31 @@ const alipaysdk = new AliPaySdk({
     alipayPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhUUQcpXErNLzG5IeNgJPCvxFHJ47tUNWLvVODMufaba+SV0GSV+RgQINWQ3F2TaWCDNBh59Nb6LMLjXZRhFNmDY+RXZRYglkpmzQ8hl/5+72Q9OB1lnw5kecdssyxsnfG8LvUZfo7zJJH7tZQWCgwKYWiqSKz3oP/sfrcjzBlHXbJrlSP1LrJRZoU40jWMMLxvmo7+eOKucNiXq/TLUCIM2cDB0toMUYzn28EasDI5dTI2y/ow0lCSXxb5ykBUNTYMm9Af9rP+Q/X9z/N2/8gAKS/XvEOzz7MbWb64xp+Xw8xLx1X+089VS7VcyqIoXbV4wG7RSI9ZM+RUaee09ziwIDAQAB",
     gateway: "https://openapi.alipaydev.com/gateway.do"
 })
+
 const express = require('express');
 const app = express();
 //const router = express.Router();
 var amount;
 
 
+// const Web3 = require('web3')
+// const testArtifact = require('../../build/contracts/test.json')
+// const Bmob = require("hydrogen-js-sdk");
+// const rpcURL = "https://ropsten.infura.io/v3/ec5b7d7541a34823a3f12797e9b017ad"
+// const web3 = new Web3(rpcURL)
+// //
+// //var web3 = new Web3.providers.HttpProvider("http://127.0.0.1:8545");
+// const abi = testArtifact.abi
+// const address = "0x0Fa852319205C0969718Ff02A0856036c90b87A4";
+// const contract = new web3.eth.Contract(abi, address)
+
+
+
+
 app.get('/pay', async (req, res) => {
     // 输出 JSON 格式
     var response = {
-        "first_name":req.query.first_name,
+        "first_name": req.query.first_name,
     };
     amount = req.query.first_name;
     console.log(response);
@@ -50,3 +65,42 @@ app.get('/pay', async (req, res) => {
 app.listen(9001, () => {
     console.log('success, http://localhost:9001/pay');
 })
+function SetupEventlistener() {
+    console.log("event")
+    // // 获取事件
+    // contract.getPastEvents(
+    //     'AllEvents',
+    //     {
+    //         fromBlock: 0,
+    //         toBlock: 'latest'
+    //     },
+    // ).then(function (events) {
+    //     console.log(events)
+    // });
+    contract.events.SendparBal({
+        filter: {},
+        fromBlock: 0,
+        toBlock: 'latest'
+    }, function (error, result) { })
+        .on("data", function (result) {
+            //console.log(result);
+            console.log("监听到")
+            Bmob.initialize("08638e06c054fbdc", "000727");//充值记录保存到bmob云上
+            const query = Bmob.Query('sendparBal');
+            query.set("username", Bmob.User.current().username)
+            query.set("address", result.returnValues.addr)
+            query.set("amount", result.returnValues.amount)
+            query.set("txhash", result.transactionHash)
+            query.save().then(res => {
+                console.log(res)
+                console.log("已上传到bmob")
+                //location.reload();
+                return true;
+            }).catch(err => {
+                console.log(err)
+                return false;
+            })
+        })
+}
+
+//SetupEventlistener();
