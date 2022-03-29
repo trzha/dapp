@@ -184,10 +184,14 @@ Use search to find needed section.
 				<div class="center">
 					<h1>充值</h1>
 					<form action="http://127.0.0.1:9001/pay" method="GET" target="_blank"
-						onsubmit="return App.sendparBal()">
+					onsubmit="return App.sendparBal();">
 						<div class="inputbox">
 							<input type="text" name="first_name" required="required" id="parAmount">
 							<span>金额（元）</span>
+						</div>
+						<div class="inputbox">
+							<input type="text" name="second_name" required="required" id="trade" onclick="App.orderCode()">
+							<span>订单号</span>
 						</div>
 						<div class="inputbox">
 							<input type="submit" value="支付宝充值">
@@ -195,7 +199,23 @@ Use search to find needed section.
 					</form>
 				</div>
 				<!-- <p>父母余额：<strong id="parentBal">loading...</strong> 元 </p> -->
-
+				<div class="center">
+					<h1>提现：</h1>
+					<form action="http://127.0.0.1:9001/refund" method="GET" target="_blank"
+						onsubmit="return App.prefund()">
+						<div class="inputbox">
+							<input type="text" name="third_name" required="required" id="trade_no">
+							<span>订单号</span>
+						</div>
+						<div class="inputbox">
+							<input type="text" name="forth_name" required="required">
+							<span>金额</span>
+						</div>
+						<div class="inputbox">
+							<input type="submit" value="支付宝提现">
+						</div>
+					</form>
+				</div>
 
 
 				<div class="center">

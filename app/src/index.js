@@ -72,6 +72,17 @@ const App = {
     })
   },
 
+  orderCode: function () {//根据时间戳生成订单号
+    var orderCode = '';
+    for (var i = 0; i < 6; i++) //6位随机数，用以加在时间戳后面。
+    {
+      orderCode += Math.floor(Math.random() * 10);
+    }
+    orderCode = new Date().getTime() + orderCode;  //时间戳，用来生成订单号。
+    console.log(orderCode)
+    document.getElementById("trade").value = orderCode;
+  },
+
   start: async function () {
 
     const { web3 } = this;
@@ -234,31 +245,7 @@ const App = {
       //   ['0x000000000000000000000000000000000000000000000000000000000000f310', '0x0000000000000000000000000000000000000000000000000000000000000010']);
       // console.log(bbb)
 
-      this.test.events.SendparBal({
-        filter: {},
-        fromBlock: 0
-      }, function (error, result) { })
-        .on("data", function (result) {
-          //console.log(result);
-          console.log("监听到")
-          Bmob.initialize("08638e06c054fbdc", "000727");//充值记录保存到bmob云上
-          const query = Bmob.Query('sendparBal');
-          query.set("username", Bmob.User.current().username)
-          query.set("address", result.returnValues.addr)
-          query.set("amount", result.returnValues.amount)
-          query.set("txhash", result.transactionHash)
-          query.save().then(res => {
-            console.log(res)
-            console.log("已上传到bmob")
-            //location.reload();
-            return true;
-          }).catch(err => {
-            console.log("上传失败")
-            console.log(err)
-            return false;
-          })
-        })
-        //.on("error", console.log(error));
+
 
       this.refreshp("parentBal", "teenBal", "teenLim", "teenSale", "sellerMoney", this.account);
       this.refresht("parentBal", "teenBal", "teenLim", "teenSale", "sellerMoney", this.account);
@@ -308,55 +295,103 @@ const App = {
 
 
   sendparBal: async function () {//给父母发钱
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    } else {
+      try {
+        const { sendparBal } = this.test.methods;
+        //const parAddr2 = document.getElementById("parAddr2").value;
+        const parAddr2 = this.account;
+        const parAmount = document.getElementById("parAmount").value;
+        const trade = document.getElementById("trade").value;
+        const parBal_old = await this.test.methods.getParBal(parAddr2).call();
+        const success = await sendparBal(parAddr2, parAmount, trade).send({ from: this.account });//这里的返回值不是return的值
+        const parBal_new = await this.test.methods.getParBal(parAddr2).call();
+        //console.log(parBal1 + "     " + parBal2 + "    " + parAmount);
+        const result = parseInt(parBal_old) + parseInt(parAmount);
+        console.log(result);
+        // if (result == parBal_new) {
+        //   alert("发送成功！！！");
+        // } else {
+        //   alert("发送失败！！！");
+        // }
+
+
+        //this.refresh("parentBal", "teenBal", "teenLim", "sellerMoney", this.account);
+        this.test.events.SendparBal({
+          filter: {},
+          fromBlock: 0
+        }, function (error, result) { })
+          .on("data", function (result) {
+            //console.log(result);
+            Bmob.initialize("08638e06c054fbdc", "000727");//充值记录保存到bmob云上
+            const query = Bmob.Query('sendparBal');
+            query.set("username", Bmob.User.current().username)
+            query.set("address", result.returnValues.addr)
+            query.set("amount", result.returnValues.amount)
+            query.set("trade_no", result.returnValues.trade_no)
+            query.set("refund", "否")
+            query.set("txhash", result.transactionHash)
+            query.save().then(res => {
+              console.log(res)
+              alert("已上传到bmob")
+              location.reload();
+              return true;
+            }).catch(err => {
+              console.log(err)
+              return false;
+            })
+          })
+        //.on("error", console.log(error));
+      } catch (err) {
+        console.log("sendparBal出错");
+        console.log(err);
+      }
+    }
+  },
+
+  prefund: async function () {//根据订单号提现
     try {
-      const { sendparBal } = this.test.methods;
-      //const parAddr2 = document.getElementById("parAddr2").value;
-      const parAddr2 = this.account;
-      const parAmount = document.getElementById("parAmount").value;
-      const parBal_old = await this.test.methods.getParBal(parAddr2).call();
-      const success = await sendparBal(parAddr2, parAmount).send({ from: this.account });//这里的返回值不是return的值
-      const parBal_new = await this.test.methods.getParBal(parAddr2).call();
-      //console.log(parBal1 + "     " + parBal2 + "    " + parAmount);
-      const result = parseInt(parBal_old) + parseInt(parAmount);
-      console.log(result);
-      // if (result == parBal_new) {
-      //   alert("发送成功！！！");
-      // } else {
-      //   alert("发送失败！！！");
-      // }
+      const { prefund } = this.test.methods;
+      const parAddr = this.account;
+      const trade_no = document.getElementById("trade_no").value;
+      await prefund(parAddr, trade_no).send({ from: this.account });
 
-
-      //this.refresh("parentBal", "teenBal", "teenLim", "sellerMoney", this.account);
-      // this.test.events.SendparBal({
-      //   filter: {},
-      //   fromBlock: 0
-      // }, function (error, result) { })
-      //   .on("data", function (result) {
-      //     //console.log(result);
-      //     Bmob.initialize("08638e06c054fbdc", "000727");//充值记录保存到bmob云上
-      //     const query = Bmob.Query('sendparBal');
-      //     query.set("username", Bmob.User.current().username)
-      //     query.set("address", result.returnValues.addr)
-      //     query.set("amount", result.returnValues.amount)
-      //     query.set("txhash", result.transactionHash)
-      //     query.save().then(res => {
-      //       console.log(res)
-      //       alert("已上传到bmob")
-      //       location.reload();
-      //       return true;
-      //     }).catch(err => {
-      //       console.log(err)
-      //       return false;
-      //     })
-      //   })
-      //   //.on("error", console.log(error));
+      this.test.events.Prefund({
+        filter: {},
+        fromBlock: 0
+      }, function (error, result) { })
+        .on("data", function (result) {
+          //console.log(result);
+          Bmob.initialize("08638e06c054fbdc", "000727");//充值记录保存到bmob云上
+          const query = Bmob.Query('sendparBal');
+          query.equalTo("trade_no", "==", result.returnValues.trade)
+          query.find().then(todos => {
+            todos.set('refund', "是");
+            todos.saveAll().then(res => {
+              console.log(res, 'ok')
+              alert("已上传到bmob")
+              location.reload();
+            }).catch(err => {
+              console.log(err)
+            });
+          })
+        })
+      //.on("error", console.log(error));
     } catch (err) {
-      console.log("sendparBal出错");
+      console.log("prefund出错")
       console.log(err);
     }
   },
 
   sendteenBal: async function () {//父母给孩子发钱
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { sendteenBal } = this.test.methods;
       const teenAddr3 = document.getElementById("teenAddr3").value;
@@ -402,6 +437,11 @@ const App = {
   },
 
   setLim: async function () {//父母设置零用钱使用范围
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { setLim } = this.test.methods;
       const teenAddr4 = document.getElementById("teenAddr4").value;
@@ -441,7 +481,11 @@ const App = {
   },
 
   setGoods: async function () {//商家上架商品
-
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       // document.getElementById("goodsImage").change(function(event){
       //   const file = event.target.files[0];
@@ -500,6 +544,11 @@ const App = {
   },
 
   getPriceGoods: async function () {//查询商家某商品的价格
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { getPriceGoods } = this.test.methods;
       const sellerAddr3 = document.getElementById("sellerAddr3").value;
@@ -513,6 +562,11 @@ const App = {
   },
 
   getTeen: async function () {//父母查询青少年信息
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       let current = Bmob.User.current();
       console.log(current);
@@ -536,6 +590,11 @@ const App = {
   },
 
   getIsBuy: async function () {//查询青少年是否可以买某一商户的某一商品
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { getIsBuy } = this.test.methods;
       const sellerAddr1 = document.getElementById("sellerAddr1").value;
@@ -552,6 +611,11 @@ const App = {
 
 
   buy: async function () {//青少年买商品
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { buy } = this.test.methods;
       const sellerAddr4 = document.getElementById("sellerAddr4").value;
@@ -595,6 +659,11 @@ const App = {
 
 
   getallGoods: async function () {//查询某一商家某一商品信息
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       let { getPriceGoods, getAvaGoods, getSaleGoods, getimgGoods, getIsBuy } = this.test.methods;
       const sellerAddr5 = document.getElementById("sellerAddr5").value;
@@ -702,6 +771,11 @@ const App = {
   },
 
   Askpar: async function () {//青少年向父母要钱
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { ask } = this.test.methods;
       const parAddr3 = document.getElementById("parAddr3").value;
@@ -893,6 +967,11 @@ const App = {
   },
 
   listBuy: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     Bmob.initialize("c10761a122fca01d", "000727");
     const query = Bmob.Query("Buy");
     query.equalTo("addr", "==", document.getElementById("teenAddr9").value)
@@ -907,6 +986,11 @@ const App = {
   },
 
   listAllgoods: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query7.html");
     // Bmob.initialize("ebc51daf45217ea1", "000727");
     // const query = Bmob.Query("setGoods");
@@ -919,6 +1003,11 @@ const App = {
   },
 
   listPricegoods: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query8.html");
     // Bmob.initialize("ebc51daf45217ea1", "000727");
     // const query = Bmob.Query("setGoods");
@@ -933,6 +1022,11 @@ const App = {
   },
 
   listSendparBal: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendparBal");
@@ -945,6 +1039,11 @@ const App = {
   },
 
   listASendparBal: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query2.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendparBal");
@@ -958,6 +1057,11 @@ const App = {
   },
 
   listAllsendteenBal: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query3.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendteenBal");
@@ -970,6 +1074,11 @@ const App = {
   },
 
   listAsendteenBal: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query4.html");
     // Bmob.initialize("08638e06c054fbdc", "000727");
     // const query = Bmob.Query("sendteenBal");
@@ -983,6 +1092,11 @@ const App = {
   },
 
   listAllbuy: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query5.html");
     // Bmob.initialize("c10761a122fca01d", "000727");
     // const query = Bmob.Query("Buy");
@@ -995,6 +1109,11 @@ const App = {
   },
 
   listAbuy: async function () {
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     window.open("query6.html");
     // Bmob.initialize("c10761a122fca01d", "000727");
     // const query = Bmob.Query("Buy");
@@ -1027,9 +1146,9 @@ const App = {
       non = res[0].nonce
     }).catch(e => {
       alert("请先将账户与地址绑定")
+      return;
     });
-    console.log(non)
-    await this.web3.eth.personal.sign(non, this.account).then(res => {
+    await this.web3.eth.personal.sign("青少年零用钱定向支付及管理系统：" + non, this.account).then(res => {
       console.log('签名结果--', res)
       r = res;
     }).catch(e => {
@@ -1042,7 +1161,7 @@ const App = {
       non = res[0].nonce
     });
     var result
-    await this.web3.eth.personal.ecRecover(non, r).then(res => {
+    await this.web3.eth.personal.ecRecover("青少年零用钱定向支付及管理系统：" + non, r).then(res => {
       result = res;
     });
     var user, pass;
@@ -1112,6 +1231,11 @@ const App = {
   },
 
   tbindp: async function () {//孩子绑定父母地址
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const { bind } = this.test.methods;
       const parAddr7 = document.getElementById("parAddr7").value;
@@ -1125,6 +1249,11 @@ const App = {
   },
 
   trace: async function () {//溯源
+    let current = Bmob.User.current();
+    if (current == null) {
+      alert("请先登录")
+      return false;
+    }
     try {
       const tranHash = document.getElementById("tranHash").value;
       var s = document.getElementById("s");

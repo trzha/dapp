@@ -1,6 +1,8 @@
 pragma solidity>=0.4.22;
 
-contract test{
+contract test{ 
+    //uint randNonce = 0;
+    mapping(uint => uint) public alipay;//支付宝订单号对应的金额
     mapping(address => uint) public parentBal;//父母余额
     struct rece{
         address taddr;
@@ -27,7 +29,8 @@ contract test{
 
     event SendparBal(
         address addr,
-        uint amount
+        uint amount,
+        uint trade_no
     );
 
     event SetGoods(
@@ -58,6 +61,11 @@ contract test{
         uint num
     );
     
+    event Prefund(
+        address paddr,
+        uint trade_no,
+        uint amount
+    );
     // constructor() public { 
     //     parentBal[0x5B38Da6a701c568545dCfcB03FcB875f56beddC4] = 100;
     //     parentBal[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db] = 100;
@@ -169,10 +177,23 @@ contract test{
         emit SetGoods(msg.sender, id, price, ava, isTeen, hash);
     }
 
-    function sendparBal(address receiver, uint amount) public returns(bool){//给父母账号发钱
+    function sendparBal(address receiver, uint amount, uint trade_no) public returns(bool){//给父母账号发钱
         require(parentBal[receiver] + amount >= parentBal[receiver]);
+        require(alipay[trade_no] == 0);
         parentBal[receiver] += amount;
-        emit SendparBal(receiver, amount);
+        //uint trade_no = uint(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce))) % 10000000000000000;
+        //randNonce++;
+        alipay[trade_no] = amount;//生成订单
+        emit SendparBal(receiver, amount, trade_no);
+        return true;
+    }
+
+    function prefund(address paddr, uint trade)public returns(bool){//父母根据支付宝订单号退款
+        require(alipay[trade] <= parentBal[paddr]);
+        require(alipay[trade] > 0);
+        parentBal[paddr] -= alipay[trade];
+        emit Prefund(paddr, trade, alipay[trade]);
+        alipay[trade] = 0;//清空订单
         return true;
     }
     

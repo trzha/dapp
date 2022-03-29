@@ -165,6 +165,8 @@
                     <th>用户名</th>
                     <th>地址</th>
                     <th>金额</th>
+                    <th>订单号</th>
+                    <th>是否退款</th>
                     <th>时间</th>
                     <th>交易哈希</th>
                 </tr>
@@ -197,6 +199,8 @@
                 newtr.insertCell().innerHTML = res[i].username;
                 newtr.insertCell().innerHTML = res[i].address;
                 newtr.insertCell().innerHTML = res[i].amount;
+                newtr.insertCell().innerHTML = res[i].trade_no;
+                newtr.insertCell().innerHTML = res[i].refund;
                 newtr.insertCell().innerHTML = res[i].createdAt;
                 newtr.insertCell().innerHTML = res[i].txhash;
                 
